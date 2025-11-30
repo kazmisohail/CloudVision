@@ -1,0 +1,8 @@
+Django==5.0
+djangorestframework
+django-cors-headers
+tensorflow==2.16.1
+pillow
+scikit-image
+python-dotenv
+google-generativeai
