@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <span className="block text-sm text-gray-400 sm:text-center">
                     © 2025{' '}
-                    <a href="https://github.com/" className="hover:underline">
+                    <a href="https://github.com/kazmisohail/cloudyyvision" className="hover:underline">
                         CloudyyVision™
                     </a>
                     . All Rights Reserved.

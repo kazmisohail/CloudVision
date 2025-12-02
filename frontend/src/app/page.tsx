@@ -10,7 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [geminiAnalysis, setGeminiAnalysis] = useState<string | null>(null);
-  const [selectedModel, setSelectedModel] = useState<string>('v2');
+  const [selectedModel, setSelectedModel] = useState<string>('v1');
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const [currentFile, setCurrentFile] = useState<File | null>(null);

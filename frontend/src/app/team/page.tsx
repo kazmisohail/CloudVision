@@ -49,7 +49,7 @@ export default function TeamPage() {
                 {/* Students Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
-                        { name: "Sohail Abbas", role: "Student", color: "cyan", img: "sohail.jpg", github: "https://github.com/", linkedin: "https://linkedin.com/in/", email: "alex@example.com" },
+                        { name: "Sohail Abbas", role: "Student", color: "cyan", img: "sohail.jpg", github: "https://github.com/kazmisohail", linkedin: "https://linkedin.com/in/kazmisohail", email: "02-134221-025@student.bahria.edu.pk" },
                         { name: "Sofia Haider", role: "Student", color: "blue", img: "sofia.jpeg", github: "https://github.com/jordan", linkedin: "https://linkedin.com/in/jordan", email: "jordan@example.com" },
                         { name: "Emad Tariq", role: "Student", color: "purple", img: "emad.jpeg", github: "https://github.com/casey", linkedin: "https://linkedin.com/in/casey", email: "casey@example.com" }
                     ].map((member, index) => (

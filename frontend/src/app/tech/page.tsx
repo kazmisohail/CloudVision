@@ -1,4 +1,5 @@
 import { Database, Layers, Cpu, Code } from 'lucide-react';
+import Image from 'next/image';
 
 export default function TechPage() {
     return (
@@ -35,8 +36,15 @@ export default function TechPage() {
                             (clouds and shadows) of varying shapes and sizes. This suppresses irrelevant regions in the input image while
                             highlighting salient features useful for the specific task.
                         </p>
-                        <div className="mt-6 h-48 bg-slate-900/50 rounded-lg border border-white/5 flex items-center justify-center text-gray-600 text-sm">
-                            [Model Architecture Diagram Placeholder]
+                        <div className="mt-6 w-full bg-slate-900/50 rounded-lg border border-white/5 overflow-hidden">
+                            <Image
+                                src="/model_architecture.png"
+                                alt="Attention U-Net Architecture"
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{ width: '100%', height: 'auto' }}
+                            />
                         </div>
                     </div>
 
@@ -50,7 +58,7 @@ export default function TechPage() {
                         </div>
                         <h3 className="text-2xl font-semibold text-white mb-4">L8CCA</h3>
                         <p className="text-gray-300 leading-relaxed text-sm">
-                            Trained on the Landsat 8 Cloud Cover Assessment (L8CCA) dataset. It provides diverse biomes (Snow, Desert, Urban, Water) ensuring robust generalization.
+                            Trained on the Landsat 8 Cloud Cover Assessment (L8CCA) dataset. It provides diverse biomes (Barren, Forest, Grass, Shrubland, Snow, Urban, Water, Wetlands) ensuring robust generalization.
                         </p>
                         <ul className="mt-4 space-y-2 text-sm text-gray-400">
                             <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-purple-400"></div> 8-Channel Multispectral</li>
