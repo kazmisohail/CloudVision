@@ -31,8 +31,8 @@ CloudVision is a state-of-the-art satellite imagery analysis platform designed t
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/kazmisohail/CloudyyVision.git
-cd CloudyyVision
+git clone https://github.com/kazmisohail/CloudVision.git
+cd CloudVision
 ```
 
 ### 2. Backend Setup

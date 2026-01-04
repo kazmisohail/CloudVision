@@ -39,7 +39,7 @@ class PredictView(APIView):
             prediction = model.predict(input_tensor)
             
             # Correction: Suppress "Thin Cloud" (Class 3) for V2/V3
-            # User reported "extra thin clouds" (false positives). 
+            # Reported "extra thin clouds" (false positives). 
             # We apply a penalty to the Thin Cloud channel to reduce sensitivity.
             if model_type in ['v2', 'v3']:
                 # Index 3 is Thin Cloud (based on remap_classes docstring)
@@ -89,8 +89,6 @@ class MitigateView(APIView):
     def post(self, request, *args, **kwargs):
         file_obj = request.data.get('file')
         # Ideally we should pass model_type here too, but for now we'll default to v2 
-        # or use the one that's likely cached/loaded.
-        # To be safe, let's default to v2 as it's the advanced one.
         model_type = request.data.get('model_type', 'v2') 
         
         if not file_obj:

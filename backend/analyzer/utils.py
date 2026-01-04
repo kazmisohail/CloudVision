@@ -38,37 +38,6 @@ def preprocess_v1(file_obj):
         
         return np.expand_dims(input_tensor, axis=0)
 
-# def preprocess_v2(image_file):
-#     """
-#     V2 Preprocessing:
-#     1. Resize to 256x256
-#     2. Normalize [0, 1]
-#     3. Pad to 8 channels (RGB at [0,1,2], rest zeros)
-#     4. Standardization: Applied per-channel ONLY on RGB channels (0, 1, 2).
-#        Padding channels (3-7) remain zeros.
-#     """
-#     img = Image.open(image_file).convert('RGB')
-#     img = img.resize((256, 256))
-#     img_array = np.array(img) / 255.0  # Normalize [0, 1]
-
-#     # Create 8-channel input
-#     input_tensor = np.zeros((256, 256, 8), dtype=np.float32)
-#     input_tensor[:, :, :3] = img_array
-
-#     # Standardization (Per channel, RGB only)
-#     # We calculate mean/std per image to center the data, which helps 
-#     # when global dataset stats are unknown but the model expects standardized inputs.
-#     for i in range(3): # Only standardize RGB
-#         channel = input_tensor[:, :, i]
-#         mean = np.mean(channel)
-#         std = np.std(channel)
-#         if std > 0:
-#             input_tensor[:, :, i] = (channel - mean) / std
-#         else:
-#             input_tensor[:, :, i] = (channel - mean) # Zero centered
-
-#     return np.expand_dims(input_tensor, axis=0)
-
 def preprocess_v2_legacy(image_file):
     """
     Legacy V2 Preprocessing (Safe Mode):
@@ -113,20 +82,9 @@ def preprocess_v2(file_obj):
             
             # Verify shape
             if data.shape != (256, 256, 8):
-                # If shape is wrong, try to resize or error out?
-                # User said: "Verify shape is (256, 256, 8)"
-                # Let's assume strict verification for now, or maybe basic resizing if it's 8 channels but wrong size?
-                # But .npy usually implies exact scientific data.
-                # Let's return error or raise exception if shape doesn't match?
-                # For robustness, if it's (H, W, 8), maybe resize? But scientific data resizing is risky.
-                # Let's stick to strict check as per "Verify shape".
                 if data.shape[-1] != 8:
                      raise ValueError(f"Expected 8 channels, got {data.shape[-1]}")
                 
-                # If just dimensions are different, maybe resize? 
-                # User didn't specify resizing for .npy, only for Image.
-                # "Action: Load using numpy. Verify shape is (256, 256, 8)."
-                # So we expect exact shape.
                 pass 
 
             return np.expand_dims(data.astype(np.float32), axis=0)
@@ -253,10 +211,6 @@ def mitigate_shadows(input_tensor, mask):
     # Create masks
     # Shadow is Class 1
     shadow_mask = (mask == 1)
-    # Clear/Fill is Class 0 (and maybe others if we consider them "non-shadow" to be fixed)
-    # The user specifically mentioned "clear and fill labels(as we merged clear and fill)".
-    # In remap_classes: 0 is Clear (which includes Fill/Other/Clear).
-    # So we want to modify Class 0 to look like Class 1.
     clear_mask = (mask == 0)
     
     # If we don't have both shadow and clear regions, we can't match them.

@@ -35,10 +35,6 @@ def combined_loss_v2(weights):
     return loss
 
 # --- V1 CONFIGURATION (Legacy) ---
-# Assuming V1 uses standard categorical crossentropy or similar, 
-# but we'll keep the existing functions for V1 if they were used for it.
-# The previous code had 'weighted_categorical_crossentropy', 'dice_loss', 'combined_loss'.
-# We will preserve them for V1.
 
 CLASS_WEIGHTS_DICT_V1 = {0: 3.531, 1: 0.430, 2: 15.000, 3: 1.708, 4: 0.569} # Assuming same weights were used
 CLASS_WEIGHTS_TENSOR_V1 = tf.constant([CLASS_WEIGHTS_DICT_V1[i] for i in range(NUM_CLASSES)], dtype=tf.float32)
@@ -128,25 +124,12 @@ class ModelLoader:
                     'loss': combined_loss_v3,
                     'combined_loss': combined_loss_v3,
                     'weighted_categorical_crossentropy': weighted_categorical_crossentropy_v3(CLASS_WEIGHTS_TENSOR_V3), # Note: The user's code returned a function, but here we need to match what the model expects. 
-                    # User's code: weighted_categorical_crossentropy(weights) returns 'loss' function.
-                    # In combined_loss_v3, it calls weighted_categorical_crossentropy_v3(CLASS_WEIGHTS_TENSOR_V3)(y_true, y_pred).
-                    # If the model saved 'weighted_categorical_crossentropy' as a custom object, it likely expects the factory function or the result?
-                    # Usually Keras saves the function name. If it was a closure, it's tricky.
-                    # User said: 'weighted_categorical_crossentropy': weighted_categorical_crossentropy
-                    # So we pass the factory function.
                     'weighted_categorical_crossentropy': weighted_categorical_crossentropy_v3,
                     'multiclass_soft_dice_loss': multiclass_soft_dice_loss_v3,
                     'mean_io_u': tf.keras.metrics.OneHotMeanIoU(num_classes=5)
                 }
             elif model_key == 'v2':
                 model_path = os.getenv('MODEL_PATH_V2', 'Attention_UNet_Advanced_1.keras')
-                # custom_objects = {
-                #     'loss': combined_loss_v2(CLASS_WEIGHTS_TENSOR_V2),
-                #     'combined_loss_v2': combined_loss_v2(CLASS_WEIGHTS_TENSOR_V2),
-                #     'multiclass_soft_dice_loss_v2': multiclass_soft_dice_loss_v2,
-                #     'weighted_categorical_crossentropy_v2': weighted_categorical_crossentropy_v2(weights_v2),
-                #     'mean_io_u': tf.keras.metrics.OneHotMeanIoU(num_classes=5)
-                # }
                 custom_objects = {
                     'loss': combined_loss_v2(CLASS_WEIGHTS_TENSOR_V2),
                     'combined_loss': combined_loss_v2(CLASS_WEIGHTS_TENSOR_V2), # For safety
