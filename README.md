@@ -3,7 +3,6 @@
 
 CloudVision is a state-of-the-art satellite imagery analysis platform designed to detect and segment cloud formations with high precision. It leverages multiple deep learning models (Attention U-Net variants) to identify cloud types, shadows, and clear skies, providing actionable meteorological insights via Google Gemini AI.
 
-![CloudVision Dashboard](https://via.placeholder.com/800x400?text=CloudVision+Dashboard+Preview)
 
 ## 🚀 Key Features
 
@@ -56,6 +55,11 @@ GEMINI_API_KEY=your_gemini_api_key_here
 MODEL_PATH_V1=models/Attention_UNet_Improved_2.keras
 MODEL_PATH_V2=models/Attention_UNet_Advanced_1.keras
 MODEL_PATH_V3=models/Attention_UNet_Balanced_Final.keras
+```
+
+```
+Find the trained model here. Download it and save it in backend/models folder
+https://huggingface.co/kazmisohail/Attention_UNet
 ```
 
 **Run Server**:
